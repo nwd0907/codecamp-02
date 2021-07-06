@@ -1,7 +1,8 @@
+import { useState } from 'react';
 import {
+    Error,
     Address,
     ButtonWrapper,
-    CancelButton,
     Contents,
     ImageWrapper,
     InputWrapper,
@@ -24,6 +25,62 @@ import {
   } from '../../../styles/boards/new/BoardsNew.styles';
   
   export default function BoardNewPage() {
+    const [writer, setWriter] = useState('')
+    const [password, setPassword] = useState('')
+    const [title, setTitle] = useState('')
+    const [contents, setContents] = useState('')
+
+    const [writerError, setWriterError] = useState('')
+    const [passwordError, setPasswordError] = useState('')
+    const [titleError, setTitleError] = useState('')
+    const [contentsError, setContentsError] = useState('')
+
+    function onChangeWriter(event){
+      setWriter(event.target.value)
+      if(event.target.value !== ""){
+        setWriterError("")
+      }
+    }
+
+    function onChangePassword(event){
+      setPassword(event.target.value)
+      if(event.target.value !== ""){
+        setPasswordError("")
+      }
+    }
+
+    function onChangeTitle(event){
+      setTitle(event.target.value)
+      if(event.target.value !== ""){
+        setTitleError("")
+      }
+    }
+
+    function onChangeContents(event){
+      setContents(event.target.value)
+      if(event.target.value !== ""){
+        setContentsError("")
+      }
+    }
+
+    function onClickSubmit(){
+      if(writer === ""){
+        setWriterError("작성자를 입력해주세요.")
+      }
+      if(password === ""){
+        setPasswordError("비밀번호를 입력해주세요.")
+      }
+      if(title === ""){
+        setTitleError("제목을 입력해주세요.")
+      }
+      if(contents === ""){
+        setContentsError("내용을 입력해주세요.")
+      }
+      if(writer !== "" && password !== "" && title !== "" && contents !== ""){
+        alert('게시물을 등록합니다~')
+      }
+    }
+
     return (
       <Wrapper>
         <Title>게시판 등록</Title>
@@ -34,7 +91,9 @@ import {
               name="writer"
               type="text"
               placeholder="이름을 적어주세요."
+              onChange={onChangeWriter}
             />
+            <Error>{writerError}</Error>
           </InputWrapper>
           <InputWrapper>
             <Label>비밀번호</Label>
@@ -42,7 +101,9 @@ import {
               name="password"
               type="password"
               placeholder="비밀번호를 입력해주세요."
+              onChange={onChangePassword}
             />
+            <Error>{passwordError}</Error>
           </InputWrapper>
         </WriterWrapper>
         <InputWrapper>
@@ -51,14 +112,18 @@ import {
             name="title"
             type="text"
             placeholder="제목을 작성해주세요."
+            onChange={onChangeTitle}
           />
+          <Error>{titleError}</Error>
         </InputWrapper>
         <InputWrapper>
           <Label>내용</Label>
           <Contents
             name="contents"
             placeholder="내용을 작성해주세요."
+            onChange={onChangeContents}
           />
+          <Error>{contentsError}</Error>
         </InputWrapper>
         <InputWrapper>
           <Label>주소</Label>
@@ -107,8 +172,7 @@ import {
           <RadioLabel htmlFor="image">사진</RadioLabel>
         </OptionWrapper>
         <ButtonWrapper>
-          <CancelButton>취소하기</CancelButton>
-          <SubmitButton>
+          <SubmitButton onClick={onClickSubmit}>
             등록하기
           </SubmitButton>
         </ButtonWrapper>
