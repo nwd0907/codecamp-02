@@ -38,7 +38,9 @@ import {
 
     const [qqq] = useMutation(
       gql`
-        mutation zzzzzzzzzzz($aaa: CreateBoardInput!){
+        mutation zzzzzzzzzzz(           $aaa: CreateBoardInput!){
+
+
           createBoard(createBoardInput: $aaa){
             _id
           }
