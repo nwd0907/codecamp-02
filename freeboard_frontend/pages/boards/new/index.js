@@ -1,3 +1,4 @@
+import { gql, useMutation } from '@apollo/client';
 import { useState } from 'react';
 import {
     Error,
@@ -35,6 +36,16 @@ import {
     const [titleError, setTitleError] = useState('')
     const [contentsError, setContentsError] = useState('')
 
+    const [qqq] = useMutation(
+      gql`
+        mutation zzzzzzzzzzz($aaa: CreateBoardInput!){
+          createBoard(createBoardInput: $aaa){
+            _id
+          }
+        }
+      `
+    )
+
     function onChangeWriter(event){
       setWriter(event.target.value)
       if(event.target.value !== ""){
@@ -63,7 +74,7 @@ import {
       }
     }
 
-    function onClickSubmit(){
+    async function onClickSubmit(){
       if(writer === ""){
         setWriterError("작성자를 입력해주세요.")
       }
@@ -77,7 +88,21 @@ import {
         setContentsError("내용을 입력해주세요.")
       }
       if(writer !== "" && password !== "" && title !== "" && contents !== ""){
-        alert('게시물을 등록합니다~')
+        try {
+          await qqq({
+            variables: {
+              aaa: {
+                writer: writer,
+                password: password,
+                title: title,
+                contents: contents
+              }
+            }
+          })
+          alert('게시물이 성공적으로 등록되었습니다.')
+        } catch(error){
+          alert(error.message)
+        }
       }
     }
 
