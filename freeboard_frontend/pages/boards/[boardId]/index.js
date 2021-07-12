@@ -25,8 +25,8 @@ export default function BoardsDetailPage() {
                 <AvatarWrapper>
                     <Avatar src="/images/avatar.png" />
                     <Info>
-                        <Writer>{data?.fetchBoard?.writer}</Writer>
-                        <CreatedAt>{data?.fetchBoard?.createdAt}</CreatedAt>
+                        <Writer>{data?.fetchBoard.writer}</Writer>
+                        <CreatedAt>{data?.fetchBoard.createdAt}</CreatedAt>
                     </Info>
                 </AvatarWrapper>
                 <IconWrapper>
@@ -35,8 +35,8 @@ export default function BoardsDetailPage() {
                 </IconWrapper>
             </Header>
             <Body>
-                <Title>{data?.fetchBoard?.title}</Title>
-                <Contents>{data?.fetchBoard?.contents}</Contents>
+                <Title>{data?.fetchBoard.title}</Title>
+                <Contents>{data?.fetchBoard.contents}</Contents>
             </Body>
         </Wrapper>
     )
