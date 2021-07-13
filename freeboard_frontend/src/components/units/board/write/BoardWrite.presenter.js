@@ -115,7 +115,10 @@ export default function BoardWriteUI(props){
                 <RadioLabel htmlFor="image">사진</RadioLabel>
             </OptionWrapper>
             <ButtonWrapper>
-                <SubmitButton onClick={props.onClickSubmit} active={props.active}>
+                <SubmitButton
+                    onClick={props.onClickSubmit}
+                    active={props.active}
+                >
                     등록하기
                 </SubmitButton>
             </ButtonWrapper>
