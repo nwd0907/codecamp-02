@@ -10,8 +10,12 @@ export default function BoardDetail() {
         { variables: { boardId: router.query.boardId } }
     )
 
+    function onClickEdit(){
+        router.push(`/detail/${router.query.boardId}/edit`)
+    }
+
     return (
-        <BoardDetailUI qqq={data}  />
+        <BoardDetailUI qqq={data} onClickEdit={onClickEdit} />
     )
 }
 
