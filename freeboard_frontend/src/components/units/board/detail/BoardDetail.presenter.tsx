@@ -1,6 +1,7 @@
 import { Avatar, AvatarWrapper, Body, Button, Contents, CreatedAt, BottomWrapper, Header, IconWrapper, Info, LinkIcon, LocationIcon, Title, Wrapper, Writer, CardWrapper } from "./BoardDetail.styles";
+import { IBoardDetailUIProps } from "./BoardDetail.types";
 
-export default function BoardDetailUI(props){
+export default function BoardDetailUI(props: IBoardDetailUIProps){
     return(
         <Wrapper>
             <CardWrapper>
@@ -23,8 +24,8 @@ export default function BoardDetailUI(props){
                 </Body>
             </CardWrapper>
             <BottomWrapper>
-                <Button onClick={props.onClickMove}>목록으로</Button>
-                <Button>수정하기</Button>
+                <Button onClick={props.onClickMoveToList}>목록으로</Button>
+                <Button onClick={props.onClickMoveToEdit}>수정하기</Button>
                 <Button onClick={props.onClickDelete}>삭제하기</Button>
             </BottomWrapper>
         </Wrapper>

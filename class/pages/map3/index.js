@@ -26,10 +26,18 @@ const Row = styled.div`
     border-bottom: 1px solid gray;
     display: flex;
     flex-direction: row;
+
+
 `
 
 const Column = styled.div`
     width: 20%;
+`
+
+const Table = styled.div`
+    :hover:not(:nth-child(5)){
+        background-color: lightgray;
+    }
 `
 
 export default function Map3Page(){
@@ -51,7 +59,10 @@ export default function Map3Page(){
     }
 
     return (
-        <div>
+        <Table>
+            <div></div>
+            <div></div>
+            <div></div>
             <Row>
                 <Column><input type="checkbox" /></Column>
                 {/* <Column>번호</Column> */}
@@ -69,7 +80,6 @@ export default function Map3Page(){
                     <Column><button id={data._id} onClick={onClickDelete}>삭제하기</button></Column>
                 </Row>
             ))}
-        </div>
+        </Table>
     )
-
 }

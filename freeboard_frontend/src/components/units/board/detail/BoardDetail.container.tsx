@@ -10,8 +10,12 @@ export default function BoardDetail(){
         variables: {boardId: router.query.boardId}
     })
 
-    function onClickMove(){
+    function onClickMoveToList(){
         router.push('/boards')
+    }
+
+    function onClickMoveToEdit(){
+        router.push(`/boards/${router.query.boardId}/edit`)
     }
 
     async function onClickDelete(){
@@ -27,7 +31,8 @@ export default function BoardDetail(){
     return(
         <BoardDetailUI 
             data={data}
-            onClickMove={onClickMove}
+            onClickMoveToList={onClickMoveToList}
+            onClickMoveToEdit={onClickMoveToEdit}
             onClickDelete={onClickDelete}
         />
     )

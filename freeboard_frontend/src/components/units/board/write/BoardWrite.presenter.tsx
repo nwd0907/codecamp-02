@@ -1,3 +1,4 @@
+import { ChangeEvent } from 'react';
 import {
     Error,
     Address,
@@ -22,11 +23,20 @@ import {
     Zipcode,
     ZipcodeWrapper,
 } from './BoardWrite.styles';
+import {INPUTS_INIT} from './BoardWrite.container'
 
-export default function BoardWriteUI(props){
+interface IBoardWriteUIProps {
+    isEdit?: boolean
+    active: boolean
+    inputsErrors: typeof INPUTS_INIT
+    onChangeInputs: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+    onClickSubmit: () => void
+    onClickUpdate: () => void
+}
+export default function BoardWriteUI(props: IBoardWriteUIProps){
     return(
         <Wrapper>
-            <Title>게시판 등록</Title>
+            <Title>{props.isEdit ? "게시판 수정" : "게시판 등록"}</Title>
             <WriterWrapper>
                 <InputWrapper>
                 <Label>작성자</Label>
@@ -34,9 +44,9 @@ export default function BoardWriteUI(props){
                     name="writer"
                     type="text"
                     placeholder="이름을 적어주세요."
-                    onChange={props.onChangeWriter}
+                    onChange={props.onChangeInputs}
                 />
-                <Error>{props.writerError}</Error>
+                <Error>{props.inputsErrors.writer}</Error>
                 </InputWrapper>
                 <InputWrapper>
                 <Label>비밀번호</Label>
@@ -44,9 +54,9 @@ export default function BoardWriteUI(props){
                     name="password"
                     type="password"
                     placeholder="비밀번호를 입력해주세요."
-                    onChange={props.onChangePassword}
+                    onChange={props.onChangeInputs}
                 />
-                <Error>{props.passwordError}</Error>
+                <Error>{props.inputsErrors.password}</Error>
                 </InputWrapper>
             </WriterWrapper>
             <InputWrapper>
@@ -55,18 +65,18 @@ export default function BoardWriteUI(props){
                 name="title"
                 type="text"
                 placeholder="제목을 작성해주세요."
-                onChange={props.onChangeTitle}
+                onChange={props.onChangeInputs}
                 />
-                <Error>{props.titleError}</Error>
+                <Error>{props.inputsErrors.title}</Error>
             </InputWrapper>
             <InputWrapper>
                 <Label>내용</Label>
                 <Contents
                 name="contents"
                 placeholder="내용을 작성해주세요."
-                onChange={props.onChangeContents}
+                onChange={props.onChangeInputs}
                 />
-                <Error>{props.contentsError}</Error>
+                <Error>{props.inputsErrors.contents}</Error>
             </InputWrapper>
             <InputWrapper>
                 <Label>주소</Label>
@@ -116,10 +126,10 @@ export default function BoardWriteUI(props){
             </OptionWrapper>
             <ButtonWrapper>
                 <SubmitButton
-                    onClick={props.onClickSubmit}
+                    onClick={props.isEdit ? props.onClickUpdate : props.onClickSubmit}
                     active={props.active}
                 >
-                    등록하기
+                    {props.isEdit ? "수정하기" : "등록하기"}
                 </SubmitButton>
             </ButtonWrapper>
         </Wrapper>

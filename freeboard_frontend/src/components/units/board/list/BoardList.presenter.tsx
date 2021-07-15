@@ -1,7 +1,8 @@
-import { getDate } from '../../../commons/libraries/utils'
+import { getDate } from '../../../../commons/libraries/utils'
 import {Button, ColumnBasic, ColumnHeaderBasic, ColumnHeaderTitle, ColumnTitle, Footer, Row, TableBottom, TableTop, Wrapper} from './BoardList.styles'
+import { IBoardListUIProps } from './BoardList.types'
 
-export default function BoardListUI(props){
+export default function BoardListUI(props: IBoardListUIProps){
     return (
         <Wrapper>
             <TableTop />
@@ -11,7 +12,7 @@ export default function BoardListUI(props){
                 <ColumnHeaderBasic>작성자</ColumnHeaderBasic>
                 <ColumnHeaderBasic>날짜</ColumnHeaderBasic>
             </Row>
-            {props.data?.fetchBoards.map((data, index) => (
+            {props.data?.fetchBoards.map((data: any, index: number) => (
                 <Row key={data._id}>
                     <ColumnBasic>{10-index}</ColumnBasic>
                     <ColumnTitle id={data._id} onClick={props.onClickMoveToBoardDetail}>
