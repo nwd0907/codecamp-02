@@ -24,10 +24,8 @@ export default function BoardWrite(props: IBoardWriteProps){
     function onChangeInputs(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>){
       const newInputs = { ...inputs, [event.target.name]: event.target.value }
       setInputs(newInputs)
-      setActive(Object.values(inputs).every(data => data))
-      if(inputsErrors[event.target.name as keyof typeof INPUTS_INIT]) {
-        setInputsErrors({...inputsErrors, [event.target.name]: ""})
-      }
+      setActive(Object.values(newInputs).every(data => data))
+      setInputsErrors({ ...inputsErrors, [event.target.name]: "" })
     }
 
     async function onClickSubmit(){

@@ -27,7 +27,9 @@ const Row = styled.div`
     display: flex;
     flex-direction: row;
 
-
+    :hover:not(:nth-of-type(1)){
+        background-color: lightgray;
+    }
 `
 
 const Column = styled.div`
@@ -35,9 +37,6 @@ const Column = styled.div`
 `
 
 const Table = styled.div`
-    :hover:not(:nth-child(5)){
-        background-color: lightgray;
-    }
 `
 
 export default function Map3Page(){
@@ -60,9 +59,6 @@ export default function Map3Page(){
 
     return (
         <Table>
-            <div></div>
-            <div></div>
-            <div></div>
             <Row>
                 <Column><input type="checkbox" /></Column>
                 {/* <Column>번호</Column> */}
