@@ -1,7 +1,7 @@
 export interface IBoardWriteProps {
-	isEdit?: boolean
+  isEdit?: boolean;
 }
 
 export interface ISubmitButtonProps {
-	active: boolean
+  active: boolean;
 }

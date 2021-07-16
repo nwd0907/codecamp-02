@@ -10,12 +10,20 @@ export default function BoardDetail() {
         { variables: { boardId: router.query.boardId } }
     )
 
+    // const { data: dataBoardComments } = useQuery(
+    //     FETCH_BOARD_COMMENTS,
+    //     { variables: { boardId: router.query.boardId } }
+    // )
+
+    // aaaaa.data.fetchBoardComments
+
+
     function onClickEdit(){
         router.push(`/detail/${router.query.boardId}/edit`)
     }
 
     return (
-        <BoardDetailUI qqq={data} onClickEdit={onClickEdit} />
+        <BoardDetailUI qqq={data} onClickEdit={onClickEdit} {/* dataBoardComments={dataBoardComments} */} />
     )
 }
 
