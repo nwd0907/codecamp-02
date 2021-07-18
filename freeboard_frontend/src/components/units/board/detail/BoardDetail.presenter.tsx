@@ -31,8 +31,8 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
             </Info>
           </AvatarWrapper>
           <IconWrapper>
-            <LinkIcon src="/images/boards/detail/link.png" />
-            <LocationIcon src="/images/boards/detail/location.png" />
+            <LinkIcon src="/images/board/detail/link.png" />
+            <LocationIcon src="/images/board/detail/location.png" />
           </IconWrapper>
         </Header>
         <Body>

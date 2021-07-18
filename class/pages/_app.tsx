@@ -8,8 +8,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     cache: new InMemoryCache(),
   });
 
-  const aaa = "";
-
   return (
     <ApolloProvider client={client}>
       <Component {...pageProps} />
