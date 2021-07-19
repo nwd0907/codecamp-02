@@ -15,6 +15,7 @@ export interface IBoardCommentWriteUIProps {
   onChangeInput: (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
+  onChangeStar: (value: number) => void;
   isEdit?: boolean;
   data?: IBoardComment;
 }

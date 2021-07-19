@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Rate } from "antd";
 
 export const Wrapper = styled.div`
   width: 1200px;
@@ -7,9 +8,12 @@ export const Wrapper = styled.div`
 
 export const PencilIcon = styled.img``;
 
+export const Star = styled(Rate)``;
+
 export const InputWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
   margin-top: 40px;
   margin-bottom: 20px;
 `;

@@ -10,6 +10,7 @@ export const INPUTS_INIT = {
   password: "",
   title: "",
   contents: "",
+  youtubeUrl: "",
 };
 
 export default function BoardWrite(props: IBoardWriteProps) {
@@ -36,8 +37,13 @@ export default function BoardWrite(props: IBoardWriteProps) {
       password: inputs.password ? "" : "비밀번호를 입력해주세요.",
       title: inputs.title ? "" : "제목을 입력해주세요.",
       contents: inputs.contents ? "" : "내용을 입력해주세요.",
+      youtubeUrl: "",
     });
-    if (Object.values(inputs).every((data) => data)) {
+
+    const isEvery = Object.values(inputs)
+      .filter((data) => data !== "yourubeUrl")
+      .every((data) => data);
+    if (isEvery) {
       try {
         const result = await createBoard({
           variables: { createBoardInput: { ...inputs } },
@@ -56,6 +62,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
       password: inputs.password ? "" : "비밀번호를 입력해주세요.",
       title: inputs.title ? "" : "제목을 입력해주세요.",
       contents: inputs.contents ? "" : "내용을 입력해주세요.",
+      youtubeUrl: "",
     });
     if (Object.values(inputs).every((data) => data)) {
       try {
@@ -66,6 +73,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
             updateBoardInput: {
               title: inputs.title,
               contents: inputs.contents,
+              youtubeUrl: inputs.youtubeUrl,
             },
           },
         });

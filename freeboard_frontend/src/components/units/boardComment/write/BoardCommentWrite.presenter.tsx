@@ -7,6 +7,7 @@ import {
   Input,
   InputWrapper,
   PencilIcon,
+  Star,
   Wrapper,
 } from "./BoardCommentWrite.styles";
 import { IBoardCommentWriteUIProps } from "./BoardCommentWrite.types";
@@ -35,6 +36,7 @@ export default function BoardCommentWriteUI(props: IBoardCommentWriteUIProps) {
           value={props.inputs.password}
           onChange={props.onChangeInput}
         />
+        <Star onChange={props.onChangeStar} />
       </InputWrapper>
       <ContentsWrapper>
         <Contents

@@ -15,7 +15,9 @@ import {
   FlexWrapper,
   ItemWrapper,
   MainWrapper,
+  WriterWrapper,
   OptionWrapper,
+  Star,
   UpdateIcon,
   Writer,
 } from "./BoardCommentList.styles";
@@ -52,7 +54,10 @@ export default function BoardCommentListUIItem(
           <FlexWrapper>
             <Avatar src="/images/avatar.png" />
             <MainWrapper>
-              <Writer>{props.data.writer}</Writer>
+              <WriterWrapper>
+                <Writer>{props.data.writer}</Writer>
+                <Star value={props.data.rating} disabled />
+              </WriterWrapper>
               <Contents>{props.data.contents}</Contents>
             </MainWrapper>
             <OptionWrapper>

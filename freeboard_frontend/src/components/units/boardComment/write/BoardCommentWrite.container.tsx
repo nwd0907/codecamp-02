@@ -28,6 +28,10 @@ export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
     setInputs({ ...inputs, [event.target.name]: event.target.value });
   }
 
+  function onChangeStar(value: number) {
+    setInputs({ ...inputs, rating: value });
+  }
+
   async function onClickWrite() {
     try {
       await createBoardComment({
@@ -79,10 +83,11 @@ export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
     <BoardCommentWriteUI
       inputs={inputs}
       onChangeInput={onChangeInput}
+      onChangeStar={onChangeStar}
       onClickWrite={onClickWrite}
+      onClickUpdate={onClickUpdate}
       isEdit={props.isEdit}
       data={props.data}
-      onClickUpdate={onClickUpdate}
     />
   );
 }
