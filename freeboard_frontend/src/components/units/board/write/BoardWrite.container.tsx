@@ -4,6 +4,7 @@ import { ChangeEvent, useState } from "react";
 import BoardWriteUI from "./BoardWrite.presenter";
 import { CREATE_BOARD, UPDATE_BOARD } from "./BoardWrite.queries";
 import { IBoardWriteProps } from "./BoardWrite.types";
+import { Modal } from "antd";
 
 export const INPUTS_INIT = {
   writer: "",
@@ -15,12 +16,19 @@ export const INPUTS_INIT = {
 
 export default function BoardWrite(props: IBoardWriteProps) {
   const router = useRouter();
+  const [isOpen, setIsOpen] = useState(false);
   const [active, setActive] = useState(false);
   const [inputs, setInputs] = useState(INPUTS_INIT);
   const [inputsErrors, setInputsErrors] = useState(INPUTS_INIT);
-
   const [createBoard] = useMutation(CREATE_BOARD);
   const [updateBoard] = useMutation(UPDATE_BOARD);
+  const [zipcode, setZipcode] = useState("");
+  const [address, setAddress] = useState("");
+  const [addressDetail, setAddressDetail] = useState("");
+
+  function onChangeAddressDetail(event: ChangeEvent<HTMLInputElement>) {
+    setAddressDetail(event.target.value);
+  }
 
   function onChangeInputs(
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -46,10 +54,17 @@ export default function BoardWrite(props: IBoardWriteProps) {
     if (isEvery) {
       try {
         const result = await createBoard({
-          variables: { createBoardInput: { ...inputs } },
+          variables: {
+            createBoardInput: {
+              ...inputs,
+              boardAddress: { zipcode, address, addressDetail },
+            },
+          },
         });
-        alert("게시물이 성공적으로 등록되었습니다.");
-        router.push(`/boards/${result.data.createBoard._id}`);
+        Modal.confirm({
+          content: "게시물이 성공적으로 등록되었습니다.",
+          onOk: () => router.push(`/boards/${result.data.createBoard._id}`),
+        });
       } catch (error) {
         alert(error.message);
       }
@@ -77,22 +92,40 @@ export default function BoardWrite(props: IBoardWriteProps) {
             },
           },
         });
-        alert("게시물이 성공적으로 수정되었습니다.");
-        router.push(`/boards/${result.data.updateBoard._id}`);
+        Modal.confirm({
+          content: "게시물이 성공적으로 수정되었습니다.",
+          onOk: () => router.push(`/boards/${result.data.updateBoard._id}`),
+        });
       } catch (error) {
         alert(error.message);
       }
     }
   }
 
+  function onClickAddressSearch() {
+    setIsOpen(true);
+  }
+
+  function onCompleteAddressSearch(data: any) {
+    setAddress(data.address);
+    setZipcode(data.zonecode);
+    setIsOpen(false);
+  }
+
   return (
     <BoardWriteUI
+      isOpen={isOpen}
       isEdit={props.isEdit}
       active={active}
+      zipcode={zipcode}
+      address={address}
       inputsErrors={inputsErrors}
       onChangeInputs={onChangeInputs}
       onClickSubmit={onClickSubmit}
       onClickUpdate={onClickUpdate}
+      onClickAddressSearch={onClickAddressSearch}
+      onCompleteAddressSearch={onCompleteAddressSearch}
+      onChangeAddressDetail={onChangeAddressDetail}
     />
   );
 }

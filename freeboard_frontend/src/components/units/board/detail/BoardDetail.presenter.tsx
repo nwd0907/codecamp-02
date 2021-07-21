@@ -1,3 +1,4 @@
+import { Tooltip } from "antd";
 import {
   Avatar,
   AvatarWrapper,
@@ -38,7 +39,12 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
           </AvatarWrapper>
           <IconWrapper>
             <LinkIcon src="/images/board/detail/link.png" />
-            <LocationIcon src="/images/board/detail/location.png" />
+            <Tooltip
+              placement="topRight"
+              title={`${props.data?.fetchBoard.boardAddress?.address} ${props.data?.fetchBoard.boardAddress?.addressDetail}`}
+            >
+              <LocationIcon src="/images/board/detail/location.png" />
+            </Tooltip>
           </IconWrapper>
         </Header>
         <Body>
