@@ -45,7 +45,10 @@ export default function BoardCommentListUIItem(
   async function onClickDelete() {
     try {
       await deleteBoardComment({
-        variables: { password, boardCommentId: props.data?._id },
+        variables: {
+          password: password,
+          boardCommentId: props.data?._id,
+        },
         refetchQueries: [
           {
             query: FETCH_BOARD_COMMENTS,

@@ -57,7 +57,11 @@ export default function BoardWrite(props: IBoardWriteProps) {
           variables: {
             createBoardInput: {
               ...inputs,
-              boardAddress: { zipcode, address, addressDetail },
+              boardAddress: {
+                zipcode: zipcode,
+                address: address,
+                addressDetail: addressDetail,
+              },
             },
           },
         });
