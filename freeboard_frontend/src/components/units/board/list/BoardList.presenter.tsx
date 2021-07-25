@@ -1,4 +1,5 @@
 import { getDate } from "../../../../commons/libraries/utils";
+import Paginations01 from "../../../commons/paginations/01/Paginations01.container";
 import {
   Button,
   ColumnBasic,
@@ -35,6 +36,12 @@ export default function BoardListUI(props: IBoardListUIProps) {
       ))}
       <TableBottom />
       <Footer>
+        <Paginations01
+          refetch={props.refetch}
+          count={props.dataBoardsCount?.fetchBoardsCount}
+          startPage={props.startPage}
+          setStartPage={props.setStartPage}
+        />
         <Button onClick={props.onClickMoveToBoardNew}>
           <img src="/images/boards/list/write.png" />
           게시물 등록하기
