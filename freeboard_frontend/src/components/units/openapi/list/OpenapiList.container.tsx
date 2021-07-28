@@ -11,11 +11,13 @@ export default function OpenapiList() {
         const result: any = await axios.get(
           "https://dog.ceo/api/breeds/image/random"
         );
-        setImgUrls((prev: string[]) => [...prev, result.data.message]);
+        setImgUrls((prev) => [...prev, result.data.message]);
       });
     };
     getImg();
   }, []);
+
+  console.log(imgUrls);
 
   return <OpenapiListUI imgUrls={imgUrls} />;
 }
