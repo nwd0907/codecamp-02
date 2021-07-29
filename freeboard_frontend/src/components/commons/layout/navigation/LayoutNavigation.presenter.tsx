@@ -1,13 +1,24 @@
 import { MenuItem, Wrapper } from "./LayoutNavigation.styles";
+import { ILayoutNavigationUIProps } from "./LayoutNavigation.types";
 
-export default function LayoutNavigationUI() {
+export default function LayoutNavigationUI(props: ILayoutNavigationUIProps) {
   return (
     <Wrapper>
-      <MenuItem>라이브게시판</MenuItem>
+      <MenuItem id="/openapis" onClick={props.onClickMenu}>
+        라이브강아지
+      </MenuItem>
       <>|</>
-      <MenuItem>라이브상품</MenuItem>
+      <MenuItem id="/boards" onClick={props.onClickMenu}>
+        라이브게시판
+      </MenuItem>
       <>|</>
-      <MenuItem>마이페이지</MenuItem>
+      <MenuItem id="/products" onClick={props.onClickMenu}>
+        라이브상품
+      </MenuItem>
+      <>|</>
+      <MenuItem id="/mypages" onClick={props.onClickMenu}>
+        마이페이지
+      </MenuItem>
     </Wrapper>
   );
 }

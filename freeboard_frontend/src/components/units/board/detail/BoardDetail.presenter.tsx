@@ -22,6 +22,8 @@ import {
   LikeWrapper,
   LikeCount,
   DislikeCount,
+  Image,
+  ImageWrapper,
 } from "./BoardDetail.styles";
 import { IBoardDetailUIProps } from "./BoardDetail.types";
 
@@ -49,6 +51,14 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
         </Header>
         <Body>
           <Title>{props.data?.fetchBoard.title}</Title>
+          <ImageWrapper>
+            {props.data?.fetchBoard.images?.map((data: string) => (
+              <Image
+                key={data}
+                src={`https://storage.googleapis.com/${data}`}
+              />
+            ))}
+          </ImageWrapper>
           <Contents>{props.data?.fetchBoard.contents}</Contents>
           <Youtube
             url={props.data?.fetchBoard.youtubeUrl}

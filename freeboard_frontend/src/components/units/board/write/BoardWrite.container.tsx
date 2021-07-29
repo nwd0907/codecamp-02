@@ -25,6 +25,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const [zipcode, setZipcode] = useState("");
   const [address, setAddress] = useState("");
   const [addressDetail, setAddressDetail] = useState("");
+  const [fileUrls, setFileUrls] = useState(["", "", ""]);
 
   function onChangeAddressDetail(event: ChangeEvent<HTMLInputElement>) {
     setAddressDetail(event.target.value);
@@ -62,6 +63,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
                 address: address,
                 addressDetail: addressDetail,
               },
+              images: [...fileUrls],
             },
           },
         });
@@ -116,6 +118,12 @@ export default function BoardWrite(props: IBoardWriteProps) {
     setIsOpen(false);
   }
 
+  function onChangeFileUrls(fileUrl: string, index: number) {
+    const newFileUrls = [...fileUrls];
+    newFileUrls[index] = fileUrl;
+    setFileUrls(newFileUrls);
+  }
+
   return (
     <BoardWriteUI
       isOpen={isOpen}
@@ -123,6 +131,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
       active={active}
       zipcode={zipcode}
       address={address}
+      fileUrls={fileUrls}
       inputsErrors={inputsErrors}
       onChangeInputs={onChangeInputs}
       onClickSubmit={onClickSubmit}
@@ -130,6 +139,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
       onClickAddressSearch={onClickAddressSearch}
       onCompleteAddressSearch={onCompleteAddressSearch}
       onChangeAddressDetail={onChangeAddressDetail}
+      onChangeFileUrls={onChangeFileUrls}
     />
   );
 }

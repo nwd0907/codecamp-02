@@ -1,9 +1,17 @@
-export default function OpenapiListUI(props) {
+import { DogImg, Wrapper } from "./OpenapiList.styles";
+import { IOpenapiListUIProps } from "./OpenapiList.types";
+
+export default function OpenapiListUI(props: IOpenapiListUIProps) {
   return (
-    <div>
-      {props.imgUrls.map((data) => (
-        <img src={data} style={{ width: "50px", height: "50px" }} />
-      ))}
-    </div>
+    <Wrapper>
+      <div>
+        {props.imgUrls.map((data, index) => (
+          <>
+            <DogImg key={data} src={data} />
+            {(index + 1) % 3 === 0 && <br />}
+          </>
+        ))}
+      </div>
+    </Wrapper>
   );
 }

@@ -1,4 +1,3 @@
-import { ChangeEvent } from "react";
 import {
   Error,
   Address,
@@ -15,7 +14,6 @@ import {
   Subject,
   SubmitButton,
   Title,
-  UploadButton,
   Wrapper,
   Writer,
   WriterWrapper,
@@ -23,26 +21,11 @@ import {
   Zipcode,
   ZipcodeWrapper,
 } from "./BoardWrite.styles";
-import { INPUTS_INIT } from "./BoardWrite.container";
 import Modal from "antd/lib/modal/Modal";
 import DaumPostcode from "react-daum-postcode";
+import Uploads01 from "../../../commons/uploads/01/Uploads01.container";
+import { IBoardWriteUIProps } from "./BoardWrite.types";
 
-interface IBoardWriteUIProps {
-  isOpen: boolean;
-  isEdit?: boolean;
-  active: boolean;
-  zipcode: string;
-  address: string;
-  inputsErrors: typeof INPUTS_INIT;
-  onChangeInputs: (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void;
-  onClickSubmit: () => void;
-  onClickUpdate: () => void;
-  onClickAddressSearch: () => void;
-  onCompleteAddressSearch: (data: any) => void;
-  onChangeAddressDetail: (event: ChangeEvent<HTMLInputElement>) => void;
-}
 export default function BoardWriteUI(props: IBoardWriteUIProps) {
   return (
     <>
@@ -97,7 +80,12 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
         <InputWrapper>
           <Label>주소</Label>
           <ZipcodeWrapper>
-            <Zipcode name="zipcode" placeholder="07250" value={props.zipcode} />
+            <Zipcode
+              name="zipcode"
+              placeholder="07250"
+              value={props.zipcode}
+              readOnly
+            />
             <SearchButton onClick={props.onClickAddressSearch}>
               우편번호 검색
             </SearchButton>
@@ -115,23 +103,14 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
         </InputWrapper>
         <ImageWrapper>
           <Label>사진첨부</Label>
-          <UploadButton>
-            {/* <input
-                    type="file"
-                    style={{ display: "none" }}
-                    ref={fileRef}
-                /> */}
-            <div>+</div>
-            <div>Upload</div>
-          </UploadButton>
-          <UploadButton>
-            <div>+</div>
-            <div>Upload</div>
-          </UploadButton>
-          <UploadButton>
-            <div>+</div>
-            <div>Upload</div>
-          </UploadButton>
+          {props.fileUrls.map((data, index) => (
+            <Uploads01
+              key={data}
+              index={index}
+              fileUrl={data}
+              onChangeFileUrls={props.onChangeFileUrls}
+            />
+          ))}
         </ImageWrapper>
         <OptionWrapper>
           <Label>메인설정</Label>
