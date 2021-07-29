@@ -121,6 +121,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
   function onChangeFileUrls(fileUrl: string, index: number) {
     const newFileUrls = [...fileUrls];
     newFileUrls[index] = fileUrl;
+    console.log(newFileUrls);
     setFileUrls(newFileUrls);
   }
 
