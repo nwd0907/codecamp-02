@@ -27,7 +27,6 @@ import Uploads01 from "../../../commons/uploads/01/Uploads01.container";
 import { IBoardWriteUIProps } from "./BoardWrite.types";
 
 export default function BoardWriteUI(props: IBoardWriteUIProps) {
-  console.log(props.fileUrls);
   return (
     <>
       {props.isOpen && (
@@ -104,12 +103,11 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
         </InputWrapper>
         <ImageWrapper>
           <Label>사진첨부</Label>
-          {props.fileUrls.map((data, index) => (
+          {new Array(3).fill(1).map((data, index) => (
             <Uploads01
               key={`${data}_${index}`}
               index={index}
-              fileUrl={data}
-              onChangeFileUrls={props.onChangeFileUrls}
+              onChangeFiles={props.onChangeFiles}
             />
           ))}
         </ImageWrapper>

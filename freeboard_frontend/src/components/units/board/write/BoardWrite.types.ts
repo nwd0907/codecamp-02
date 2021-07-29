@@ -11,7 +11,6 @@ export interface IBoardWriteUIProps {
   active: boolean;
   zipcode: string;
   address: string;
-  fileUrls: string[];
   inputsErrors: typeof INPUTS_INIT;
   onChangeInputs: (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -21,7 +20,7 @@ export interface IBoardWriteUIProps {
   onClickAddressSearch: () => void;
   onCompleteAddressSearch: (data: any) => void;
   onChangeAddressDetail: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangeFileUrls: (fileUrl: string, index: number) => void;
+  onChangeFiles: (file: File, index: number) => void;
 }
 
 export interface ISubmitButtonProps {

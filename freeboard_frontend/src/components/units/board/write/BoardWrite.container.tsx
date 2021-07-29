@@ -2,7 +2,7 @@ import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
 import BoardWriteUI from "./BoardWrite.presenter";
-import { CREATE_BOARD, UPDATE_BOARD } from "./BoardWrite.queries";
+import { CREATE_BOARD, UPDATE_BOARD, UPLOAD_FILE } from "./BoardWrite.queries";
 import { IBoardWriteProps } from "./BoardWrite.types";
 import { Modal } from "antd";
 
@@ -20,12 +20,13 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const [active, setActive] = useState(false);
   const [inputs, setInputs] = useState(INPUTS_INIT);
   const [inputsErrors, setInputsErrors] = useState(INPUTS_INIT);
-  const [createBoard] = useMutation(CREATE_BOARD);
-  const [updateBoard] = useMutation(UPDATE_BOARD);
   const [zipcode, setZipcode] = useState("");
   const [address, setAddress] = useState("");
   const [addressDetail, setAddressDetail] = useState("");
-  const [fileUrls, setFileUrls] = useState(["", "", ""]);
+  const [files, setFiles] = useState<(File | null)[]>([null, null, null]);
+  const [createBoard] = useMutation(CREATE_BOARD);
+  const [updateBoard] = useMutation(UPDATE_BOARD);
+  const [uploadFile] = useMutation(UPLOAD_FILE);
 
   function onChangeAddressDetail(event: ChangeEvent<HTMLInputElement>) {
     setAddressDetail(event.target.value);
@@ -52,28 +53,36 @@ export default function BoardWrite(props: IBoardWriteProps) {
     const isEvery = Object.values(inputs)
       .filter((data) => data !== "yourubeUrl")
       .every((data) => data);
-    if (isEvery) {
-      try {
-        const result = await createBoard({
-          variables: {
-            createBoardInput: {
-              ...inputs,
-              boardAddress: {
-                zipcode: zipcode,
-                address: address,
-                addressDetail: addressDetail,
-              },
-              images: [...fileUrls],
+    if (!isEvery) return;
+
+    try {
+      // 이미지 업로드
+      const uploadFiles = files
+        .filter((data) => data)
+        .map((data) => uploadFile({ variables: { file: data } }));
+      const results = await Promise.all(uploadFiles);
+      const images = results.map((data) => data.data.uploadFile.url);
+
+      // 게시물 업로드
+      const result = await createBoard({
+        variables: {
+          createBoardInput: {
+            ...inputs,
+            boardAddress: {
+              zipcode: zipcode,
+              address: address,
+              addressDetail: addressDetail,
             },
+            images: images,
           },
-        });
-        Modal.confirm({
-          content: "게시물이 성공적으로 등록되었습니다.",
-          onOk: () => router.push(`/boards/${result.data.createBoard._id}`),
-        });
-      } catch (error) {
-        alert(error.message);
-      }
+        },
+      });
+      Modal.confirm({
+        content: "게시물이 성공적으로 등록되었습니다.",
+        onOk: () => router.push(`/boards/${result.data.createBoard._id}`),
+      });
+    } catch (error) {
+      alert(error.message);
     }
   }
 
@@ -118,11 +127,10 @@ export default function BoardWrite(props: IBoardWriteProps) {
     setIsOpen(false);
   }
 
-  function onChangeFileUrls(fileUrl: string, index: number) {
-    const newFileUrls = [...fileUrls];
-    newFileUrls[index] = fileUrl;
-    console.log(newFileUrls);
-    setFileUrls(newFileUrls);
+  function onChangeFiles(file: File, index: number) {
+    const newFiles = [...files];
+    newFiles[index] = file;
+    setFiles(newFiles);
   }
 
   return (
@@ -132,7 +140,6 @@ export default function BoardWrite(props: IBoardWriteProps) {
       active={active}
       zipcode={zipcode}
       address={address}
-      fileUrls={fileUrls}
       inputsErrors={inputsErrors}
       onChangeInputs={onChangeInputs}
       onClickSubmit={onClickSubmit}
@@ -140,7 +147,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
       onClickAddressSearch={onClickAddressSearch}
       onCompleteAddressSearch={onCompleteAddressSearch}
       onChangeAddressDetail={onChangeAddressDetail}
-      onChangeFileUrls={onChangeFileUrls}
+      onChangeFiles={onChangeFiles}
     />
   );
 }
