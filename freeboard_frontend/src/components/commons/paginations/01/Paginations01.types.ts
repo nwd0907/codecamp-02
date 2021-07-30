@@ -1,4 +1,11 @@
-import { MouseEvent } from "react";
+import { MouseEvent, SetStateAction } from "react";
+
+export interface IPaginations01Props {
+  refetch: any;
+  count?: number;
+  startPage: number;
+  setStartPage: (value: SetStateAction<number>) => void;
+}
 
 export interface IPaginations01UIProps {
   startPage: number;

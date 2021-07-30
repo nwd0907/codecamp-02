@@ -7,9 +7,15 @@ export interface IBoardListUIProps {
   refetch: (
     variables?: Partial<OperationVariables> | undefined
   ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchBoards">>>;
+  keyword: string;
   dataBoardsCount?: Pick<IQuery, "fetchBoardsCount">;
   startPage: number;
   setStartPage: (value: SetStateAction<number>) => void;
   onClickMoveToBoardNew: () => void;
   onClickMoveToBoardDetail: (event: MouseEvent<HTMLDivElement>) => void;
+  onChangeKeyword: (value: string) => void;
+}
+
+export interface ITextTokenProps {
+  isMatched: boolean;
 }
