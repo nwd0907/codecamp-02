@@ -54,7 +54,6 @@ export const ColumnTitle = styled.div`
 
 export const TextToken = styled.span`
   color: ${(props: ITextTokenProps) => (props.isMatched ? "red" : "black")};
-  background-color: gray;
 `;
 
 export const Footer = styled.div`
