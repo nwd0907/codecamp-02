@@ -21,6 +21,10 @@ export const Row = styled.div`
   height: 52px;
   line-height: 52px;
   border-bottom: 1px solid gray;
+
+  :hover {
+    color: blue;
+  }
 `;
 
 export const ColumnHeaderBasic = styled.div`
@@ -50,6 +54,7 @@ export const ColumnTitle = styled.div`
 
 export const TextToken = styled.span`
   color: ${(props: ITextTokenProps) => (props.isMatched ? "red" : "black")};
+  background-color: gray;
 `;
 
 export const Footer = styled.div`
@@ -73,7 +78,6 @@ export const Button = styled.button`
   cursor: pointer;
 
   :hover {
-    background-color: #5729ff;
-    color: white;
+    background-color: #f5f2fc;
   }
 `;

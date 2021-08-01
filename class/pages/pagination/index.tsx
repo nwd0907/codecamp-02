@@ -1,6 +1,7 @@
 import { useQuery, gql } from "@apollo/client";
 import { IQuery } from "../../src/commons/types/generated/types";
 import styled from "@emotion/styled";
+import { MouseEvent } from "react";
 
 const FETCH_BOARDS = gql`
   query fetchBoards($page: Int) {
@@ -26,8 +27,8 @@ export default function PaginationPage() {
     variables: { page: 1 },
   });
 
-  function onClickPage(event) {
-    refetch({ page: Number(event.target.id) });
+  function onClickPage(event: MouseEvent<HTMLSpanElement>) {
+    refetch({ page: Number((event.target as Element).id) });
   }
 
   return (
@@ -39,7 +40,7 @@ export default function PaginationPage() {
         </div>
       ))}
       {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((data) => (
-        <Page key={data} onClick={onClickPage} id={data}>
+        <Page key={data} onClick={onClickPage} id={String(data)}>
           {data}
         </Page>
       ))}
