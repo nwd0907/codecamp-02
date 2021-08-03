@@ -15,11 +15,11 @@ const LOGIN_USER = gql`
   }
 `;
 
-export default function Login() {
+export default function SignupPage() {
   const router = useRouter();
+  const { setAccessToken } = useContext(GlobalContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { setAccessToken } = useContext(GlobalContext);
   const [loginUser] = useMutation<
     Pick<IMutation, "loginUser">,
     IMutationLoginUserArgs
@@ -41,7 +41,7 @@ export default function Login() {
           password: password,
         },
       });
-      setAccessToken(result.data?.loginUser.accessToken);
+      setAccessToken(result.data?.loginUser.accessToken || "");
       router.push("/22-login-success");
     } catch (error) {
       alert(error.message);
@@ -50,10 +50,11 @@ export default function Login() {
 
   return (
     <>
-      <h1>로그인</h1>
-      이메일: <input type="text" onChange={onChangeEmail} /> <br />
-      비밀번호: <input type="password" onChange={onChangePassword} /> <br />
-      <button onClick={onClickLogin}>로그인</button>
+      이메일: <input type="text" onChange={onChangeEmail} />
+      <br />
+      비밀번호: <input type="text" onChange={onChangePassword} />
+      <br />
+      <button onClick={onClickLogin}>로그인하기</button>
     </>
   );
 }

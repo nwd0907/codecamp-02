@@ -5,7 +5,7 @@ import {
   IMutationCreateUserArgs,
 } from "../../src/commons/types/generated/types";
 
-const CRAETE_USER = gql`
+const CREATE_USER = gql`
   mutation createUser($createUserInput: CreateUserInput!) {
     createUser(createUserInput: $createUserInput) {
       _id
@@ -13,14 +13,14 @@ const CRAETE_USER = gql`
   }
 `;
 
-export default function SignupLoginPage() {
+export default function SignupPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [createUser] = useMutation<
     Pick<IMutation, "createUser">,
     IMutationCreateUserArgs
-  >(CRAETE_USER);
+  >(CREATE_USER);
 
   function onChangeEmail(event: ChangeEvent<HTMLInputElement>) {
     setEmail(event.target.value);
@@ -36,7 +36,7 @@ export default function SignupLoginPage() {
 
   async function onClickSignup() {
     try {
-      const result = await createUser({
+      await createUser({
         variables: {
           createUserInput: {
             email: email,
@@ -45,7 +45,7 @@ export default function SignupLoginPage() {
           },
         },
       });
-      console.log(result.data?.createUser._id);
+      alert("회원가입 완료!!");
     } catch (error) {
       alert(error.message);
     }
@@ -53,10 +53,9 @@ export default function SignupLoginPage() {
 
   return (
     <>
-      <h1>회원가입</h1>
       이메일: <input type="text" onChange={onChangeEmail} />
       <br />
-      비밀번호: <input type="password" onChange={onChangePassword} />
+      비밀번호: <input type="text" onChange={onChangePassword} />
       <br />
       이름: <input type="text" onChange={onChangeName} />
       <br />
