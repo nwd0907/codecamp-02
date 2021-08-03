@@ -25,8 +25,11 @@ import Modal from "antd/lib/modal/Modal";
 import DaumPostcode from "react-daum-postcode";
 import Uploads01 from "../../../commons/uploads/01/Uploads01.container";
 import { IBoardWriteUIProps } from "./BoardWrite.types";
+import { useContext } from "react";
+import { BoardsEditPageContext } from "../../../../../pages/boards/[boardId]/edit";
 
 export default function BoardWriteUI(props: IBoardWriteUIProps) {
+  const { isEdit, data } = useContext(BoardsEditPageContext);
   return (
     <>
       {props.isOpen && (
@@ -35,7 +38,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
         </Modal>
       )}
       <Wrapper>
-        <Title>{props.isEdit ? "게시판 수정" : "게시판 등록"}</Title>
+        <Title>{isEdit ? "게시판 수정" : "게시판 등록"}</Title>
         <WriterWrapper>
           <InputWrapper>
             <Label>작성자</Label>
@@ -43,6 +46,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
               name="writer"
               type="text"
               placeholder="이름을 적어주세요."
+              defaultValue={data?.fetchBoard.writer || ""}
               onChange={props.onChangeInputs}
             />
             <Error>{props.inputsErrors.writer}</Error>
@@ -64,6 +68,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
             name="title"
             type="text"
             placeholder="제목을 작성해주세요."
+            defaultValue={data?.fetchBoard.title || ""}
             onChange={props.onChangeInputs}
           />
           <Error>{props.inputsErrors.title}</Error>
@@ -73,6 +78,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
           <Contents
             name="contents"
             placeholder="내용을 작성해주세요."
+            defaultValue={data?.fetchBoard.contents || ""}
             onChange={props.onChangeInputs}
           />
           <Error>{props.inputsErrors.contents}</Error>
@@ -120,10 +126,10 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
         </OptionWrapper>
         <ButtonWrapper>
           <SubmitButton
-            onClick={props.isEdit ? props.onClickUpdate : props.onClickSubmit}
+            onClick={isEdit ? props.onClickUpdate : props.onClickSubmit}
             active={props.active}
           >
-            {props.isEdit ? "수정하기" : "등록하기"}
+            {isEdit ? "수정하기" : "등록하기"}
           </SubmitButton>
         </ButtonWrapper>
       </Wrapper>

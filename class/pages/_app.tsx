@@ -14,6 +14,7 @@ import { createUploadLink } from "apollo-upload-client";
 
 import firebase from "firebase/app";
 import "firebase/firestore";
+import { createContext, useState } from "react";
 
 if (typeof window !== "undefined") {
   firebase.initializeApp({
@@ -25,9 +26,14 @@ if (typeof window !== "undefined") {
   });
 }
 
+export const GlobalContext = createContext({});
 function MyApp({ Component, pageProps }: AppProps) {
+  const [accessToken, setAccessToken] = useState();
   const uploadLink = createUploadLink({
     uri: "http://backend02.codebootcamp.co.kr/graphql",
+    headers: {
+      authorization: `bearer ${accessToken}`,
+    },
   });
 
   const client = new ApolloClient({
@@ -37,12 +43,14 @@ function MyApp({ Component, pageProps }: AppProps) {
   });
 
   return (
-    <ApolloProvider client={client}>
-      <Layout aaa={true}>
-        <Global styles={globalStyles} />
-        <Component {...pageProps} />
-      </Layout>
-    </ApolloProvider>
+    <GlobalContext.Provider value={{ accessToken, setAccessToken }}>
+      <ApolloProvider client={client}>
+        <Layout aaa={true}>
+          <Global styles={globalStyles} />
+          <Component {...pageProps} />
+        </Layout>
+      </ApolloProvider>
+    </GlobalContext.Provider>
   );
 }
 

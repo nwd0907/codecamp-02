@@ -136,7 +136,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
   return (
     <BoardWriteUI
       isOpen={isOpen}
-      isEdit={props.isEdit}
+      // isEdit={props.isEdit}
       active={active}
       zipcode={zipcode}
       address={address}
