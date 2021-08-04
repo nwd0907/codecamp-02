@@ -1,20 +1,6 @@
-import { Modal } from "antd";
-import { useRouter } from "next/router";
-import { useContext, useEffect } from "react";
 import withAuth from "../../src/components/commons/hocs/withAuth";
-import { GlobalContext } from "../_app";
 
 function MarketsPage() {
-  const router = useRouter();
-  const { accessToken } = useContext(GlobalContext);
-
-  useEffect(() => {
-    if (!accessToken) {
-      Modal.error({ content: "로그인을 해주세요." });
-      router.push("/login");
-    }
-  }, []);
-
   return (
     <>
       <br />

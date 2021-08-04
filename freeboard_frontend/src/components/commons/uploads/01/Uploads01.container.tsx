@@ -1,4 +1,3 @@
-import { Modal } from "antd";
 import { ChangeEvent, useRef, useState } from "react";
 import { checkValidationFile } from "../../../../commons/libraries/validations";
 import Uploads01UI from "./Uploads01.presenter";
@@ -13,7 +12,7 @@ export default function Uploads01(props: IUploads01Props) {
   }
 
   async function onChangeFile(event: ChangeEvent<HTMLInputElement>) {
-    const file = event.target.files?.[0];
+    const file: any = event.target.files?.[0];
     if (!checkValidationFile(file)) return;
 
     const fileReader = new FileReader();

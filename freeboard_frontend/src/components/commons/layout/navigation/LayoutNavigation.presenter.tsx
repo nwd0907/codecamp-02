@@ -12,7 +12,7 @@ export default function LayoutNavigationUI(props: ILayoutNavigationUIProps) {
         라이브게시판
       </MenuItem>
       <>|</>
-      <MenuItem id="/products" onClick={props.onClickMenu}>
+      <MenuItem id="/markets" onClick={props.onClickMenu}>
         라이브상품
       </MenuItem>
       <>|</>
