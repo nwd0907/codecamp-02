@@ -1,9 +1,10 @@
 import { Modal } from "antd";
 import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
+import withAuth from "../../src/components/commons/hocs/withAuth";
 import { GlobalContext } from "../_app";
 
-export default function MarketsPage() {
+function MarketsPage() {
   const router = useRouter();
   const { accessToken } = useContext(GlobalContext);
 
@@ -22,3 +23,5 @@ export default function MarketsPage() {
     </>
   );
 }
+
+export default withAuth(MarketsPage);
