@@ -17,6 +17,6 @@ export default Container;
 //                      }
 //
 //
-// (withAuth(Presenter))({aaa: 'aaaProps'})  ==>  (이름은상관없음)({aaa: 'aaaProps'})
+// (withAuth(Presenter))({aaa: "철수"})  ==>  (이름은상관없음)({aaa: "철수"})
 //
 //                                           ==>  <Presenter {...props} />
