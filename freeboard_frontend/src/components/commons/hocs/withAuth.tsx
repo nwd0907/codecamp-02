@@ -13,6 +13,7 @@ const withAuth = (Component: any) => (props: any) => {
     }
   }, []);
 
+  if (!accessToken) return <></>;
   return <Component {...props} />;
 };
 

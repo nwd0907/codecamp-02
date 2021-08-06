@@ -33,7 +33,9 @@ export default function LoginPage() {
 
   const onClickLogin = async () => {
     try {
-      const result = await loginUser({ variables: { ...inputs } });
+      const result = await loginUser({ 
+        variables: { ...inputs },
+      });
       setAccessToken?.(result.data?.loginUser.accessToken || "");
       router.push("/markets");
     } catch (error) {
