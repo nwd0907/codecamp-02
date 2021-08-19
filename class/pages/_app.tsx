@@ -24,6 +24,10 @@ import {
 } from "react";
 // import Head from "next/head";
 import { getAccessToken } from "../src/commons/libraries/getAccessToken";
+import * as Sentry from "@sentry/nextjs";
+Sentry.init({
+  dsn: "https://bb9d862e546d4d298db66bd03e13b2aa@o965334.ingest.sentry.io/5916103",
+});
 
 if (typeof window !== "undefined") {
   firebase.initializeApp({
@@ -77,7 +81,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const uploadLink = createUploadLink({
     uri: "https://backend02.codebootcamp.co.kr/graphql",
     headers: {
-      authorization: `Bearer ${accessToken || null}`,
+      authorization: `Bearer ${accessToken}`,
     },
     credentials: "include",
   });
@@ -86,6 +90,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     // uri: "http://backend02.codebootcamp.co.kr/graphql",
     link: ApolloLink.from([errorLink, uploadLink as unknown as ApolloLink]),
     cache: new InMemoryCache(),
+    connectToDevTools: true,
   });
 
   return (
